@@ -206,7 +206,8 @@
         },
         "arguments": {
             "command": "command",
-            "option": "option"
+            "option": "option",
+            "input": "input"
         },
         "commandDescs": {
             "dev": "Developer use only.",
@@ -218,7 +219,8 @@
         "argDescs": {
             "devCommand": "Command.",
             "helpOption": "Option.",
-            "infoOption": "Option."
+            "infoOption": "Option.",
+            "errorreportInput": "Input."
         },
         "fields": {
             "commands": "Commands",

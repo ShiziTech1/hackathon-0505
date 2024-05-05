@@ -30,6 +30,21 @@ export const ChatCommandMetadata: {
             },
         ],
     },
+    ERRORREPORT: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.errorreport', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('chatCommands.errorreport'),
+        description: Lang.getRef('commandDescs.errorreport', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.errorreport'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+        options: [
+            {
+                ...Args.ERRORREPORT_INPUT,
+                required: true,
+            },
+        ],
+    },
     HELP: {
         type: ApplicationCommandType.ChatInput,
         name: Lang.getRef('chatCommands.help', Language.Default),
@@ -68,16 +83,7 @@ export const ChatCommandMetadata: {
         description_localizations: Lang.getRefLocalizationMap('commandDescs.test'),
         dm_permission: true,
         default_member_permissions: undefined,
-    },
-    ERRORREPORT: {
-        type: ApplicationCommandType.ChatInput,
-        name: Lang.getRef('chatCommands.errorreport', Language.Default),
-        name_localizations: Lang.getRefLocalizationMap('chatCommands.errorreport'),
-        description: Lang.getRef('commandDescs.errorreport', Language.Default),
-        description_localizations: Lang.getRefLocalizationMap('commandDescs.errorreport'),
-        dm_permission: true,
-        default_member_permissions: undefined,
-    },
+    }
 };
 
 export const MessageCommandMetadata: {

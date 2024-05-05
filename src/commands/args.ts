@@ -19,6 +19,15 @@ export class Args {
             },
         ],
     };
+    public static readonly ERRORREPORT_INPUT: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.input', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.input'),
+        description: Lang.getRef('argDescs.errorreportInput', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.errorreportInput'),
+        type: ApplicationCommandOptionType.String,
+        choices: [
+        ],
+    };
     public static readonly HELP_OPTION: APIApplicationCommandBasicOption = {
         name: Lang.getRef('arguments.option', Language.Default),
         name_localizations: Lang.getRefLocalizationMap('arguments.option'),

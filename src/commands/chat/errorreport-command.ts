@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, PermissionsString } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, PermissionsString } from 'discord.js';
 import { RateLimiter } from 'discord.js-rate-limiter';
 
 import { Language } from '../../models/enum-helpers/index.js';
@@ -14,6 +14,22 @@ export class ErrorReportCommand implements Command {
     public requireClientPerms: PermissionsString[] = [];
 
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
-        await InteractionUtils.send(intr, Lang.getEmbed('displayEmbeds.test', data.lang));
+        const errorLog = intr.options.getString("input");
+        const row = new ActionRowBuilder<ButtonBuilder>()
+            .addComponents(
+                new ButtonBuilder()
+                    .setCustomId('button1')
+                    .setLabel('Primary')
+                    .setStyle(ButtonStyle.Primary),
+                new ButtonBuilder()
+                    .setCustomId('button2')
+                    .setLabel('Secondary')
+                    .setStyle(ButtonStyle.Secondary),
+                new ButtonBuilder()
+                    .setCustomId('button3')
+                    .setLabel('Success')
+                    .setStyle(ButtonStyle.Success)
+            );
+        await InteractionUtils.send(intr, { content: 'Here are your buttons:', components: [row] });
     }
 }
