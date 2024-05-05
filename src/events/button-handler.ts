@@ -22,62 +22,77 @@ export class ButtonHandler implements EventHandler {
     ) {}
 
     public async process(intr: ButtonInteraction): Promise<void> {
+
+        switch (intr.customId) {
+            case 'button1':
+                await intr.reply({ content: 'You selected Option 1', ephemeral: true });
+                break;
+            case 'button2':
+                await intr.reply({ content: 'You selected Option 2', ephemeral: true });
+                break;
+            case 'button3':
+                await intr.reply({ content: 'You selected Option 3', ephemeral: true });
+                break;
+            default:
+                await intr.reply({ content: 'Unknown option', ephemeral: true });
+                break;
+        }
         // Don't respond to self, or other bots
-        if (intr.user.id === intr.client.user?.id || intr.user.bot) {
-            return;
-        }
+        // if (intr.user.id === intr.client.user?.id || intr.user.bot) {
+        //     return;
+        // }
 
-        // Check if user is rate limited
-        let limited = this.rateLimiter.take(intr.user.id);
-        if (limited) {
-            return;
-        }
+        // // Check if user is rate limited
+        // let limited = this.rateLimiter.take(intr.user.id);
+        // if (limited) {
+        //     return;
+        // }
 
-        // Try to find the button the user wants
-        let button = this.findButton(intr.customId);
-        if (!button) {
-            return;
-        }
+        // // Try to find the button the user wants
+        // let button = this.findButton(intr.customId);
+        // if (!button) {
+        //     return;
+        // }
 
-        if (button.requireGuild && !intr.guild) {
-            return;
-        }
+        // if (button.requireGuild && !intr.guild) {
+        //     return;
+        // }
 
-        // Check if the embeds author equals the users tag
-        if (
-            button.requireEmbedAuthorTag &&
-            intr.message.embeds[0]?.author?.name !== intr.user.tag
-        ) {
-            return;
-        }
+        // // Check if the embeds author equals the users tag
+        // if (
+        //     button.requireEmbedAuthorTag &&
+        //     intr.message.embeds[0]?.author?.name !== intr.user.tag
+        // ) {
+        //     return;
+        // }
 
-        // Defer interaction
-        // NOTE: Anything after this point we should be responding to the interaction
-        switch (button.deferType) {
-            case ButtonDeferType.REPLY: {
-                await InteractionUtils.deferReply(intr);
-                break;
-            }
-            case ButtonDeferType.UPDATE: {
-                await InteractionUtils.deferUpdate(intr);
-                break;
-            }
-        }
+        // // Defer interaction
+        // // NOTE: Anything after this point we should be responding to the interaction
+        // switch (button.deferType) {
+        //     case ButtonDeferType.REPLY: {
+        //         await InteractionUtils.deferReply(intr);
+        //         break;
+        //     }
+        //     case ButtonDeferType.UPDATE: {
+        //         await InteractionUtils.deferUpdate(intr);
+        //         break;
+        //     }
+        // }
 
-        // Return if defer was unsuccessful
-        if (button.deferType !== ButtonDeferType.NONE && !intr.deferred) {
-            return;
-        }
+        // // Return if defer was unsuccessful
+        // if (button.deferType !== ButtonDeferType.NONE && !intr.deferred) {
+        //     return;
+        // }
 
-        // Get data from database
-        let data = await this.eventDataService.create({
-            user: intr.user,
-            channel: intr.channel,
-            guild: intr.guild,
-        });
+        // // Get data from database
+        // let data = await this.eventDataService.create({
+        //     user: intr.user,
+        //     channel: intr.channel,
+        //     guild: intr.guild,
+        // });
 
-        // Execute the button
-        await button.execute(intr, data);
+        // // Execute the button
+        // await button.execute(intr, data);
     }
 
     private findButton(id: string): Button {
