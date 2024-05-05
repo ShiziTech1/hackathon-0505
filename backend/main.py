@@ -6,6 +6,9 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Milvus
 from langchain_community.embeddings import OctoAIEmbeddings
 from langchain_community.llms.octoai_endpoint import OctoAIEndpoint
+from langchain.prompts import ChatPromptTemplate
+from langchain_core.runnables import RunnablePassthrough
+from langchain_core.output_parsers import StrOutputParser
 
 OCTOAI_API_TOKEN = os.environ["OCTOAI_API_TOKEN"]
 
@@ -34,7 +37,7 @@ log_file_splits = text_splitter.split_documents(log_file_docs)
 all_splits = source_code_splits + log_file_splits
 
 llm = OctoAIEndpoint(
-        model="llama-2-13b-chat-fp16",
+        model="codellama-34b-instruct",
         max_tokens=1024,
         presence_penalty=0,
         temperature=0.1,
@@ -46,11 +49,29 @@ vector_store = Milvus.from_documents(
     all_splits,
     embedding=embeddings,
     connection_args={"host": "localhost", "port": 19530},
-    collection_name="starwars"
+    collection_name="logging"
 )
+retriever = vector_store.as_retriever()
+# template="""You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know the answer, just say that you don't know. Use three sentences maximum and keep the answer concise.
+# Question: {question}
+# Context: {context}
+# Answer:"""
+template="""
+Here is the source code and the log. Please provide: 
+1.) The line where the error occurs,
+2.) The reason for the error, and
+3.) How to fix it.
+"""
+prompt = ChatPromptTemplate.from_template(template)
 # perform FM
 
 # then query OctoAI for the output answer
+chain = (
+    {"context": retriever, "question": RunnablePassthrough()}
+    | prompt
+    | llm
+    | StrOutputParser()
+)
 
 
 app = FastAPI()
@@ -63,4 +84,5 @@ async def root():
 
 @app.post("/ask")
 async def ask(question: str):
+    result = chain.invoke(question)
     return {"question": question}
