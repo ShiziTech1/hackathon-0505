@@ -1,58 +1,89 @@
 /home/cmagorian/Storage/repos/hackathon-0505/.venv/bin/python -m uvicorn backend.example.app.app:app --reload
 INFO:     Will watch for changes in these directories: ['/home/cmagorian/Storage/repos/hackathon-0505']
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [37284] using WatchFiles
-INFO:     Started server process [37286]
+INFO:     Started reloader process [54066] using WatchFiles
+INFO:     Started server process [54068]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     127.0.0.1:52852 - "GET /erroir HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:52852 - "GET /favicon.ico HTTP/1.1" 404 Not Found
-{'req_id': '944c05e4-852a-4ebe-8979-fcc4bed73d5d'}
-INFO:     127.0.0.1:52852 - "GET /error HTTP/1.1" 200 OK
-{"message": "Had an issue", "lineno": 23}
-{"message": "Successful request", "lineno": 25}
-{"message": "Had an issue", "lineno": 23}
-{"message": "Successful request", "lineno": 25}
-{"message": "Had an issue", "lineno": 23}
-{"message": "Successful request", "lineno": 25}
-{"message": "Had an issue", "lineno": 23}
-{"message": "Successful request", "lineno": 25}
-{"message": "Had an issue", "lineno": 23}
-{"message": "Successful request", "lineno": 25}
-{"message": "Had an issue", "lineno": 23}
-{"message": "Successful request", "lineno": 25}
-{"message": "Had an issue", "lineno": 23}
-{"message": "Successful request", "lineno": 25}
-{"message": "Had an issue", "lineno": 23}
-{"message": "Successful request", "lineno": 25}
-{"message": "Had an issue", "lineno": 23}
-{"message": "Successful request", "lineno": 25}
-{"message": "Had an issue", "lineno": 23}
-{"message": "Successful request", "lineno": 25}
-{"message": "Had an issue", "lineno": 23}
-{"message": "Successful request", "lineno": 25}
-{"message": "Had an issue", "lineno": 23}
-{"message": "Successful request", "lineno": 25}
-{"message": "Had an issue", "lineno": 23}
-{"message": "Successful request", "lineno": 25}
-{"message": "Had an issue", "lineno": 23}
-{"message": "Successful request", "lineno": 25}
-{"message": "Had an issue", "lineno": 23}
-{"message": "Successful request", "lineno": 25}
-{"message": "Had an issue", "lineno": 23}
-{"message": "Successful request", "lineno": 25}
-{"message": "Had an issue", "lineno": 23}
-{"message": "Successful request", "lineno": 25}
-{"message": "Had an issue", "lineno": 23}
-{"message": "Successful request", "lineno": 25}
-{"message": "Had an issue", "lineno": 23}
-{"message": "Successful request", "lineno": 25}
-{"message": "Had an issue", "lineno": 23}
-{"message": "Successful request", "lineno": 25}
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [37286]
-INFO:     Stopping reloader process [37284]
-
-Process finished with exit code 0
+Had an issue
+NoneType: None
+Successful request
+NoneType: None
+Had an issue
+NoneType: None
+Successful request
+NoneType: None
+Had an issue
+NoneType: None
+Successful request
+NoneType: None
+Had an issue
+NoneType: None
+Successful request
+NoneType: None
+Had an issue
+NoneType: None
+Successful request
+NoneType: None
+Had an issue
+NoneType: None
+Successful request
+NoneType: None
+Had an issue
+NoneType: None
+Successful request
+NoneType: None
+Had an issue
+NoneType: None
+Successful request
+NoneType: None
+Had an issue
+NoneType: None
+Successful request
+NoneType: None
+Had an issue
+NoneType: None
+Successful request
+NoneType: None
+Had an issue
+NoneType: None
+Successful request
+NoneType: None
+Had an issue
+NoneType: None
+Successful request
+NoneType: None
+Had an issue
+NoneType: None
+Successful request
+NoneType: None
+Had an issue
+NoneType: None
+Successful request
+NoneType: None
+Had an issue
+NoneType: None
+Successful request
+NoneType: None
+Had an issue
+NoneType: None
+Successful request
+NoneType: None
+Had an issue
+NoneType: None
+Successful request
+NoneType: None
+Had an issue
+NoneType: None
+Successful request
+NoneType: None
+Had an issue
+NoneType: None
+Successful request
+NoneType: None
+Had an issue
+NoneType: None
+Successful request
+NoneType: None
+{'req_id': '5cb777c6-1fac-411b-af0d-5674008dff78'}
+INFO:     127.0.0.1:35384 - "GET /error HTTP/1.1" 200 OK

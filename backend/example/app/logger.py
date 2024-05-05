@@ -7,12 +7,6 @@ class JsonFormatter(Formatter):
     def __init__(self):
         super(JsonFormatter, self).__init__()
 
-    def format(self, record):
-        json_record = {}
-        json_record["message"] = record.getMessage()
-        json_record["lineno"] = record.lineno
-        return json.dumps(json_record)
-
 
 logger = logging.root
 handler = logging.StreamHandler()
