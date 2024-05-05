@@ -85,5 +85,4 @@ Had an issue
 NoneType: None
 Successful request
 NoneType: None
-{'req_id': '5cb777c6-1fac-411b-af0d-5674008dff78'}
 INFO:     127.0.0.1:35384 - "GET /error HTTP/1.1" 200 OK

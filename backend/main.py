@@ -49,47 +49,47 @@ llm = OctoAIEndpoint(
     temperature=0.1,
     top_p=0.9,
 )
-embeddings = OctoAIEmbeddings(endpoint_url="https://text.octoai.run/v1/embeddings")
-vector_store = Milvus.from_documents(
-    all_splits,
-    embedding=embeddings,
-    connection_args={"host": "localhost", "port": 19530},
-    collection_name="try2"
-)
+# vector_store = Milvus.from_documents(
+#     all_splits,
+#     embedding=embeddings,
+#     connection_args={"host": "localhost", "port": 19530},
+#     collection_name="try2"
+# )
+# embeddings = OctoAIEmbeddings(endpoint_url="https://text.octoai.run/v1/embeddings")
 
+all_docs = log_file_docs + source_code_docs
 
 def format_docs(docs: List[Document]) -> str:
-    '''Format the docs.'''
-    return "\n \n".join([doc.page_content for doc in docs])
-
-template = """
-source_code: {0} \n
-""".format(format_docs(source_code_docs))
-template += "logs: `{{log}}`"
-print(template)
-# prompt = ChatPromptTemplate.from_template(template)
+    return "\n \n".join([doc.page_content for doc in all_docs])
 
 
-prompt = ChatPromptTemplate.from_messages(
-    [
-        SystemMessage(
-            content=(
-                """
-Here is the source code and the log. Please provide: 
-1.) The line where the error occurs, 
-2.) The reason for the error, and 
-3.) How to fix it.
-                """
-            )
-        ),
-        HumanMessagePromptTemplate.from_template(template),
-    ]
-)
+template="""You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know the answer, just say that you don't know. Use three sentences maximum and keep the answer concise.
+Question: {question} 
+Context: {context} 
+Answer:"""
+prompt = ChatPromptTemplate.from_template(template)
+
+
+# prompt = ChatPromptTemplate.from_messages(
+#     [
+#         SystemMessage(
+#             content=(
+#                 """
+# Here is the source code and the log. Please provide:
+# 1.) The line where the error occurs,
+# 2.) The reason for the error, and
+# 3.) How to fix it.
+#                 """
+#             )
+#         ),
+#         HumanMessagePromptTemplate.from_template(template),
+#     ]
+# )
 
 
 # then query OctoAI for the output answer
 chain = (
-        {"log": vector_store.as_retriever()}
+        {"context": format_docs, "question": RunnablePassthrough()}
         | prompt
         | llm
         | StrOutputParser()
@@ -106,4 +106,15 @@ async def root():
 @app.post("/ask")
 async def ask(question: str):
     result = chain.invoke(question)
+    test_result = """
+    The error occurs on line 23, where the logger.error method is called with the exc_info parameter set to True. This parameter is used to log the exception information, but it is not set to a valid exception object.
+
+    The reason for the error is that the exc_info parameter is not set to a valid exception object. In this case, it is set to True, which is not a valid exception object.
+    
+    To fix the error, you should set the exc_info parameter to a valid exception object, such as Exception or a custom exception class. For example:
+    logger.error('Had an issue', exc_info=Exception, extra=extra_logging)
+    
+    Alternatively, you can remove the exc_info parameter altogether, if you don't need to log the exception information.
+    """
+    print(result)
     return {"result": result}
