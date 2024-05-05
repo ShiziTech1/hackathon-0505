@@ -18,7 +18,7 @@ async def error(req_id: str = ""):
         req_id = str(uuid.uuid4())
     extra_logging = {'req_id': req_id}
     print(extra_logging)
-    for i in range(0, 10000):
+    for i in range(0, 40):
         if i % 2 == 0:
             logger.error('Had an issue', exc_info=True, extra=extra_logging)
         else:
